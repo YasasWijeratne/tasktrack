@@ -1,0 +1,11 @@
+const router = require('express').Router();
+const controller = require('../controllers/taskController');
+const auth = require('../middleware/authMiddleware');
+router.use(auth);
+router.get('/', controller.listTasks);
+router.post('/', controller.createTask);
+router.patch('/:id', controller.updateTask);
+router.delete('/:id', controller.deleteTask);
+router.patch('/:id/status', controller.updateStatus);
+router.patch('/:id/assign-self', controller.assignSelf);
+module.exports = router;
