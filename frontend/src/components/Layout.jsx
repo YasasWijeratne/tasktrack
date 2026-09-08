@@ -1,0 +1,3 @@
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+export default function Layout() { const { user, logout } = useAuth(); const navigate = useNavigate(); return <div className="app-shell"><header className="topbar"><NavLink className="brand" to="/board"><span className="brand-mark">T</span><span>TaskTrack</span></NavLink><nav><NavLink to="/board">Board</NavLink>{user?.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}</nav><div className="account"><span className="avatar">{user?.name?.[0]?.toUpperCase()}</span><span className="account-name">{user?.name}</span><button className="button ghost" onClick={() => { logout(); navigate('/login') }}>Log out</button></div></header><main><Outlet /></main></div> }

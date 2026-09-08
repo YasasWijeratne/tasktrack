@@ -1,0 +1,4 @@
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import TaskColumn from './TaskColumn'
+const columns = [{ id: 'todo', label: 'To Do' }, { id: 'doing', label: 'Doing' }, { id: 'done', label: 'Done' }]
+export default function TaskBoard({ tasks, onMove, ...actions }) { const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } })); const dragEnd = ({ active, over }) => { if (!over) return; const task = tasks.find((item) => item._id === active.id); if (task && columns.some((column) => column.id === over.id) && task.status !== over.id) onMove(task, over.id) }; return <DndContext sensors={sensors} onDragEnd={dragEnd}><div className="board-grid">{columns.map((column) => <TaskColumn key={column.id} column={column} tasks={tasks.filter((task) => task.status === column.id)} {...actions} />)}</div></DndContext> }

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">TaskTrack</title>
+  <rect width="64" height="64" rx="16" fill="#6758d9"/>
+  <path fill="#fff" d="M15 16h34v10H37v25H27V26H15z"/>
+  <path fill="#b8afff" d="M42 38l5 5 9-11 5 4-14 17-10-10z"/>
+</svg>

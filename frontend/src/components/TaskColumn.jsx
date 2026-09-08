@@ -1,0 +1,3 @@
+import { useDroppable } from '@dnd-kit/core'
+import TaskCard from './TaskCard'
+export default function TaskColumn({ column, tasks, ...actions }) { const { setNodeRef, isOver } = useDroppable({ id: column.id }); return <section className={`task-column ${isOver ? 'over' : ''}`} ref={setNodeRef}><header><div><span className={`column-icon ${column.id}`} />{column.label}</div><span className="count">{tasks.length}</span></header><div className="task-list">{tasks.map((task) => <TaskCard key={task._id} task={task} {...actions} />)}{tasks.length === 0 && <div className="empty-state">Drop tasks here</div>}</div></section> }
