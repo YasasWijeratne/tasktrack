@@ -7,11 +7,10 @@ export const useAuth = () => useContext(AuthContext)
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(() => Boolean(localStorage.getItem('tasktrack_token')))
 
   useEffect(() => {
     if (!localStorage.getItem('tasktrack_token')) {
-      setLoading(false)
       return undefined
     }
     api.get('/auth/me')
