@@ -14,6 +14,10 @@ app.use('/api/admin', adminRoutes);
 app.use((_req, res) => res.status(404).json({ message: 'Route not found' }));
 app.use((error, _req, res, _next) => {
   console.error(error);
+  if (error instanceof SyntaxError && error.status === 400 && error.type === 'entity.parse.failed') {
+    return res.status(400).json({ message: 'Request body must contain valid JSON' });
+  }
+  if (error.code === 11000) return res.status(409).json({ message: 'An account with that email already exists' });
   if (error.name === 'ValidationError') return res.status(400).json({ message: error.message });
   res.status(500).json({ message: 'Something went wrong on the server' });
 });

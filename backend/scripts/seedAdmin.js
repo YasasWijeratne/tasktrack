@@ -9,11 +9,19 @@ async function seed() {
   await connectDB();
   const existing = await User.findOne({ email: ADMIN_EMAIL.toLowerCase() });
   if (existing) {
-    console.log('An account with the admin email already exists; no changes made.');
+    if (existing.role !== 'admin') throw new Error('The configured admin email belongs to a normal user');
+    console.log('An administrator with that email already exists; no changes made.');
   } else {
     await User.create({ name: ADMIN_NAME, email: ADMIN_EMAIL.toLowerCase(), password: await bcrypt.hash(ADMIN_PASSWORD, 12), role: 'admin' });
     console.log('Administrator created successfully.');
   }
-  process.exit(0);
 }
-seed().catch((error) => { console.error(error.message); process.exit(1); });
+seed()
+  .catch((error) => {
+    console.error(error.message);
+    process.exitCode = 1;
+  })
+  .finally(async () => {
+    const mongoose = require('mongoose');
+    await mongoose.disconnect();
+  });
