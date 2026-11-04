@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import Logo from '../components/Logo'
 
 const columns = [
   { name: 'To Do', className: 'todo', tasks: ['Plan the next task', 'Write clear details'] },
@@ -13,7 +14,7 @@ export default function LandingPage() {
 
   return <div className="landing-page">
     <header className="landing-nav">
-      <Link className="brand" to="/"><span className="brand-mark">T</span><span>TaskTrack</span></Link>
+      <Link className="brand" to="/"><Logo /><span>TaskTrack</span></Link>
       <nav aria-label="Main navigation">
         <a href="#features">Features</a>
         <a href="#workflow">How it works</a>
@@ -63,6 +64,6 @@ export default function LandingPage() {
       <section className="landing-cta"><div><span className="eyebrow">READY TO ORGANIZE YOUR WORK?</span><h2>Start with a clear board.</h2></div><Link className="button light-button large" to={user ? workspacePath : '/register'}>{user ? 'Open workspace' : 'Create an account'} →</Link></section>
     </main>
 
-    <footer className="landing-footer"><Link className="brand" to="/"><span className="brand-mark">T</span><span>TaskTrack</span></Link><p>A simple task management application.</p></footer>
+    <footer className="landing-footer"><Link className="brand" to="/"><Logo /><span>TaskTrack</span></Link><p>A simple task management application.</p></footer>
   </div>
 }
